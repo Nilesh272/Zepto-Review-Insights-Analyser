@@ -1,0 +1,31 @@
+# Product registry (architecture §10). app_store_id / play_package / doc_id are PLACEHOLDERS.
+# Replace with real Apple app ids, Google Play package names, and per-product Google Doc ids.
+products:
+  - id: indmoney
+    name: INDMoney
+    app_store_id: "1447333214"
+    play_package: "in.indwealth"
+    doc_id: "REPLACE_WITH_DOC_ID_INDMONEY"
+  - id: groww
+    name: Groww
+    app_store_id: "1404871703"
+    play_package: "com.nextbillion.groww"
+    doc_id: "REPLACE_WITH_DOC_ID_GROWW"
+    # Stakeholder recipients for the teaser email (placeholders — replace with real addresses):
+    recipients:
+      - "product-pulse@example.com"
+  - id: powerup_money
+    name: PowerUp Money
+    app_store_id: "0000000000"
+    play_package: "money.powerup.app"
+    doc_id: "REPLACE_WITH_DOC_ID_POWERUP"
+  - id: wealth_monitor
+    name: Wealth Monitor
+    app_store_id: "0000000001"
+    play_package: "com.wealthmonitor.app"
+    doc_id: "REPLACE_WITH_DOC_ID_WEALTHMONITOR"
+  - id: kuvera
+    name: Kuvera
+    app_store_id: "1090383272"
+    play_package: "com.dimensional.coinvalue"
+    doc_id: "REPLACE_WITH_DOC_ID_KUVERA"

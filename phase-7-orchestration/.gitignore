@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.pulse/
+.env
+*.pem
+*.key
+credentials.json
+token.json

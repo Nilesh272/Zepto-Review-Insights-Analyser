@@ -1,0 +1,124 @@
+# Agent settings (architecture §10). All keys optional; defaults applied when omitted.
+window_weeks: 26            # longer window keeps more App Store / Play reviews in-scope
+top_themes:
+  min: 3
+  max: 5
+language_allowlist:
+  - en
+limits:
+  max_tokens_per_run: 200000
+  max_cost_usd_per_run: 5.0
+ingestion:
+  app_store_country: in      # Zepto is India-first; richest review volume in IN stores
+  play_lang: en
+  play_country: in
+  max_app_store_pages: 10    # Apple RSS hard cap
+  max_play_reviews: 1200     # per sort mode; sorts below merge + dedupe
+  play_sorts:                # pull both glowing and critical Play feedback
+    - newest
+    - most_relevant
+    - rating
+  max_retries: 3
+  retry_backoff_seconds: 1.0
+community:
+  enabled: true
+  reddit:
+    enabled: true
+    max_posts: 200
+    subreddits:
+      - india
+      - bangalore
+      - mumbai
+      - delhi
+      - hyderabad
+      - IndianFood
+      - indianapps
+    queries: []   # product.community_queries used when empty
+  file_drops_enabled: true
+  file_drops_dir: .pulse/community_drops
+  seed_examples: true
+filters:
+  drop_emoji: true            # drop reviews that contain any emoji
+  drop_other_languages: true  # drop reviews whose detected language is not in language_allowlist
+  min_words: 4                # drop reviews with fewer than this many words
+preprocess:
+  redact_names: true          # redact author + cue-based person names
+  scrub_title: true           # scrub the review title in addition to the body
+  redetect_language: false    # ingestion already filtered language; re-detect off by default
+reasoning:
+  embedder: hashing           # hashing (default, no torch) | sentence-transformers
+  embedding_model: all-MiniLM-L6-v2
+  embedding_dim: 256
+  clusterer: auto             # auto | umap_hdbscan | fallback
+  umap_components: 5
+  umap_neighbors: 15
+  min_cluster_size: 3
+  min_reviews_for_clustering: 5
+  stratify_by_rating: true    # cluster 1-2★ / 3★ / 4-5★ separately so negatives aren't lost
+  fallback_similarity_threshold: 0.45
+  random_seed: 42
+summarize:
+  backend: deterministic      # deterministic | openai | groq
+  model: gpt-4o-mini          # for groq use e.g. llama-3.3-70b-versatile (auto-switched if left as gpt-*)
+  max_quotes_per_theme: 3
+  max_actions_per_theme: 3
+  min_cluster_size_for_theme: 3
+  min_critical_themes: 1        # always include at least one low-rating (1-2★) theme when present
+  critical_max_rating: 2.5      # clusters at or below this avg are treated as critical/negative
+  fuzzy_match: true           # accept whitespace/case diffs only (not paraphrase)
+  drop_offensive_quotes: false
+  rescrub_output: true        # re-scrub PII from generated text before publish
+  cost_per_1k_tokens: 0.0     # deterministic backend is free; API backend sets a real rate
+insights:
+  enabled: true
+  lenses_file: insights_zepto.yaml
+  backend: groq               # deterministic (extractive AI, offline) | openai | groq
+  model: llama-3.3-70b-versatile
+  min_reviews_per_lens: 3
+  max_quotes_per_lens: 4       # room for both praise and criticism per question
+  balance_sentiment: true
+  llm_sample_size: 36
+render:
+  max_quotes_per_theme: 4     # show both good and bad evidence in the Doc
+  max_summary_chars: 480
+  max_title_chars: 120
+  deep_link_token: "{{DEEP_LINK}}"
+  subject_template: "Weekly Review Pulse — {product} ({week})"
+email_mode: draft           # draft | send  (dev/staging defaults to draft)
+stale_run_minutes: 120      # a RUNNING record older than this is considered stale/recoverable
+mcp:
+  transport: local           # mock (in-memory) | local (writes real files) | stdio (real Google MCP)
+  local_output_dir: out      # transport: local writes out/docs/<doc_id>.html + out/emails/
+  docs_endpoint: "stdio://google-docs-mcp"
+  gmail_endpoint: "stdio://gmail-mcp"
+  max_retries: 3
+  retry_backoff_seconds: 0.5
+  # --- Real delivery (set transport: stdio and fill these in). See STDIO_MCP_SETUP.md. ---
+  # The agent LAUNCHES these MCP servers; OAuth/credentials live inside the servers, not here.
+  # docs_server:
+  #   command: npx
+  #   args: ["-y", "@your-org/google-docs-mcp"]
+  #   env:
+  #     GOOGLE_OAUTH_CREDENTIALS: /abs/path/to/credentials.json
+  # gmail_server:
+  #   command: npx
+  #   args: ["-y", "@your-org/gmail-mcp"]
+  #   env:
+  #     GOOGLE_OAUTH_CREDENTIALS: /abs/path/to/credentials.json
+  # Map the agent's operations to YOUR server's tool names + argument/result keys:
+  # docs_tools:
+  #   get_document: get_document
+  #   batch_update: batch_update
+  #   delete_named_range: null        # set to your server's tool name to enable --force replace
+  #   document_id_arg: documentId
+  #   requests_arg: requests
+  #   named_ranges_key: namedRanges
+  #   heading_id_key: headingId
+  # gmail_tools:
+  #   create_draft: create_draft
+  #   send_message: send_message
+  #   to_arg: to
+  #   subject_arg: subject
+  #   html_arg: html
+  #   text_arg: text
+  #   message_id_key: messageId

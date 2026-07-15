@@ -1,0 +1,86 @@
+"""CLI entry point (architecture §9).
+
+Phase 0 supports a single ``run`` subcommand with ``--dry-run`` and ``--force``. Backfill of
+arbitrary ISO weeks already works here (any valid ``--week``); scheduling arrives in Phase 7.
+
+Usage:
+    python -m pulse.cli run --product groww --week 2026-W26 --dry-run
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import logging
+import sys
+from pathlib import Path
+
+from pulse.agent.core import AgentCore, RunSummary
+from pulse.config import load_config
+from pulse.state.ledger import RunInProgressError, RunLedger
+from pulse.utils.isoweek import IsoWeekError, current_iso_week
+
+_DEFAULT_CONFIG_DIR = Path(__file__).resolve().parent.parent / "config"
+_DEFAULT_LEDGER = ".pulse/ledger.db"
+
+
+def _build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="pulse", description="Weekly Product Review Pulse agent")
+    parser.add_argument("--config-dir", default=str(_DEFAULT_CONFIG_DIR), help="Config directory")
+    parser.add_argument("--ledger", default=_DEFAULT_LEDGER, help="Path to the run ledger DB")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Verbose logging")
+
+    sub = parser.add_subparsers(dest="command", required=True)
+    run_p = sub.add_parser("run", help="Run the pulse for a product + ISO week")
+    run_p.add_argument("--product", required=True, help="Product id (see config/products.yaml)")
+    run_p.add_argument("--week", help="ISO week 'YYYY-Www' (defaults to current ISO week)")
+    run_p.add_argument("--dry-run", action="store_true", help="Plan + run skills, skip MCP writes")
+    run_p.add_argument("--force", action="store_true", help="Re-run even if already completed")
+    return parser
+
+
+def run_command(args: argparse.Namespace) -> RunSummary:
+    config = load_config(args.config_dir)
+    iso_week = args.week or str(current_iso_week())
+
+    with RunLedger(args.ledger) as ledger:
+        agent = AgentCore(config=config, ledger=ledger)
+        return agent.run(
+            product_id=args.product,
+            iso_week=iso_week,
+            dry_run=args.dry_run,
+            force=args.force,
+        )
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = _build_parser().parse_args(argv)
+    logging.basicConfig(
+        level=logging.INFO if args.verbose else logging.WARNING,
+        format="%(levelname)s %(name)s: %(message)s",
+    )
+
+    if args.command == "run":
+        try:
+            summary = run_command(args)
+        except IsoWeekError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
+        except KeyError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
+        except RunInProgressError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 3
+        except FileNotFoundError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            return 2
+
+        print(json.dumps(summary.model_dump(), indent=2, default=str))
+        return 0 if summary.status != "FAILED" else 1
+
+    return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

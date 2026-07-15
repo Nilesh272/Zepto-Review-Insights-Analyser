@@ -1,0 +1,20 @@
+pydantic>=2,<3
+PyYAML>=6
+python-dotenv>=1.0
+pytest>=8
+# Allows PEP 604 (`X | None`) annotations to resolve on Python 3.9; no-op on 3.10+.
+eval_type_backport>=0.2; python_version < "3.10"
+# Language filtering (deterministic with a fixed seed).
+langdetect>=1.0.9
+# Live Google Play fetching (optional at runtime; tests use fixtures, not the network).
+google-play-scraper>=1.2.6
+# Phase 3 clustering.
+numpy>=1.23
+umap-learn>=0.5
+hdbscan>=0.8.33
+# Optional production embedder backend (pulls in torch; default backend is "hashing"):
+# sentence-transformers>=2.2
+# Optional LLM backends (OpenAI SDK also talks to Groq via base_url):
+openai>=1.0
+# Real MCP delivery (transport: stdio). Not needed for mock/local runs or the test suite:
+# mcp>=1.0

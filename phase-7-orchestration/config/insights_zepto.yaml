@@ -1,0 +1,201 @@
+# Zepto category-discovery & shopping-behavior insight lenses.
+# Each lens maps reviews to a product-research question; matching is keyword/phrase based.
+# Prefer specific phrases over generic words. Quotes are always verbatim from matched reviews.
+
+lenses:
+  - id: repeat_categories
+    question: "Why do users repeatedly buy from the same categories?"
+    keywords:
+      - same
+      - always
+      - every time
+      - regularly
+      - reorder
+      - re order
+      - again
+      - usual
+      - staple
+      - daily
+      - weekly
+      - groceries
+      - milk
+      - bread
+      - essentials
+      - household
+      - only buy
+      - keep buying
+    who_this_helps: [Product, Growth, Merchandising]
+
+  - id: explore_barriers
+    question: "What prevents users from exploring new categories?"
+    keywords:
+      - don't know
+      - dont know
+      - never tried
+      - unsure
+      - confused
+      - hard to find
+      - can't find
+      - cannot find
+      - unavailable
+      - out of stock
+      - limited
+      - not available
+      - search
+      - browse
+      - explore
+      - expensive
+      - trust
+      - skeptical
+      - afraid
+    who_this_helps: [Product, Discovery, UX]
+
+  - id: product_discovery
+    question: "How do users discover products today?"
+    keywords:
+      - search
+      - search bar
+      - find
+      - found
+      - browse
+      - scroll
+      - suggested
+      - recommend
+      - recommendation
+      - offer
+      - deals
+      - discount
+      - banner
+      - category
+      - categories
+      - filter
+      - flash
+      - trending
+    who_this_helps: [Product, Discovery, Growth]
+
+  - id: shopping_habits
+    question: "What role do habits play in shopping behavior?"
+    keywords:
+      - habit
+      - routine
+      - usually
+      - always order
+      - every day
+      - daily
+      - morning
+      - night
+      - midnight
+      - late night
+      - emergency
+      - sudden
+      - quick
+      - regular
+      - subscription
+      - reorder
+    who_this_helps: [Product, UX, Growth]
+
+  - id: try_category_info
+    question: "What information do users need before trying a new category?"
+    keywords:
+      - quality
+      - fresh
+      - expiry
+      - price
+      - pricing
+      - trust
+      - review
+      - rating
+      - description
+      - details
+      - photo
+      - image
+      - size
+      - weight
+      - brand
+      - authentic
+      - return
+      - refund
+      - guarantee
+      - verify
+    who_this_helps: [Product, Merchandising, Trust]
+
+  - id: recurring_frustrations
+    question: "What frustrations emerge repeatedly?"
+    keywords:
+      - late
+      - delay
+      - delayed
+      - cancel
+      - cancelled
+      - refund
+      - wrong item
+      - wrong order
+      - missing
+      - damaged
+      - expired
+      - support
+      - customer care
+      - no response
+      - charged
+      - frustrating
+      - worst
+      - useless
+      - hate
+    who_this_helps: [Product, Ops, Support]
+
+  - id: segment_experimenters
+    question: "Which user segments are more likely to experiment?"
+    segments:
+      - id: new_users
+        label: "New / first-time users"
+        keywords: [first time, first order, new user, tried, trying, download]
+      - id: frequent
+        label: "Frequent reorderers"
+        keywords: [every day, daily, regularly, reorder, always order, weekly]
+      - id: cafe_food
+        label: "Café / food experimenters"
+        keywords: [cafe, café, coffee, meal, hot, snacks, dessert]
+      - id: pharmacy
+        label: "Pharmacy / wellness"
+        keywords: [medicine, pharmacy, vitamins, tablet, syrup, health]
+      - id: deal_seekers
+        label: "Deal / offer hunters"
+        keywords: [offer, discount, deal, coupon, cashback, free]
+    keywords:
+      - first time
+      - tried
+      - trying
+      - new
+      - explore
+      - cafe
+      - café
+      - pharmacy
+      - offer
+      - discount
+      - experiment
+    who_this_helps: [Product, Growth, Discovery]
+
+  - id: unmet_needs
+    question: "What unmet needs emerge consistently across discussions?"
+    keywords:
+      - wish
+      - need to
+      - would love
+      - would be great
+      - missing
+      - lack
+      - should have
+      - hate that
+      - frustrating
+      - limited
+      - can't
+      - cannot
+      - serviceable
+      - not delivering
+      - area
+      - location
+      - pin code
+      - improve
+      - needs work
+      - feature
+    who_this_helps: [Product, Leadership]

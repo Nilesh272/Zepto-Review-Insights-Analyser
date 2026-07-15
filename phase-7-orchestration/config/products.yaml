@@ -1,0 +1,25 @@
+# Product registry (architecture §10).
+# Zepto's app_store_id / play_package are the real public store identifiers.
+# doc_id is the local HTML filename for transport: local; replace with a Google Doc id for stdio.
+products:
+  - id: zepto
+    name: Zepto
+    app_store_id: "1575323645"
+    play_package: "com.zeptoconsumerapp"
+    doc_id: "zepto-weekly-pulse"
+    recipients:
+      - "product-pulse@example.com"
+    community_queries:
+      - "Zepto"
+      - "Zepto app"
+      - "Zepto delivery"
+      - "Zepto Blinkit"
+      - "Zepto Instant"
+    reddit_subreddits:
+      - india
+      - bangalore
+      - mumbai
+      - delhi
+      - hyderabad
+      - IndianFood
+      - indianapps

@@ -1,0 +1,15 @@
+# Agent settings (architecture §10). All keys optional; defaults applied when omitted.
+window_weeks: 12            # rolling ingestion window (8–12 recommended)
+top_themes:
+  min: 3
+  max: 5
+language_allowlist:
+  - en
+limits:
+  max_tokens_per_run: 200000
+  max_cost_usd_per_run: 5.0
+email_mode: draft           # draft | send  (dev/staging defaults to draft)
+stale_run_minutes: 120      # a RUNNING record older than this is considered stale/recoverable
+mcp:
+  docs_endpoint: "stdio://google-docs-mcp"
+  gmail_endpoint: "stdio://gmail-mcp"

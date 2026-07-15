@@ -1,0 +1,141 @@
+# Spotify discovery & listening insight lenses.
+# Each lens maps reviews to a product-research question; matching is keyword/phrase based
+# (deterministic, offline). Quotes are always verbatim from matched reviews.
+# Prefer specific phrases over generic words (e.g. "same songs" not just "songs").
+
+lenses:
+  - id: discovery_struggle
+    question: "Why do users struggle to discover new music?"
+    keywords:
+      - hard to find
+      - can't find
+      - cannot find
+      - discover weekly
+      - new artist
+      - new artists
+      - new music
+      - underground
+      - niche artist
+      - search
+      - browse
+      - explore
+      - discovery
+      - don't know what
+    who_this_helps: [Product, Discovery]
+
+  - id: recommendation_frustrations
+    question: "What are the most common frustrations with recommendations?"
+    keywords:
+      - recommendation
+      - recommended
+      - for you
+      - discover weekly
+      - release radar
+      - autoplay
+      - algorithm
+      - ai dj
+      - dj mode
+      - wrong songs
+      - irrelevant
+      - same songs
+      - keeps playing
+      - repetitive
+      - shuffle
+      - skip limit
+      - suggested
+    who_this_helps: [Product, Personalization]
+
+  - id: listening_behaviors
+    question: "What listening behaviors are users trying to achieve?"
+    keywords:
+      - workout
+      - gym
+      - run
+      - running
+      - commute
+      - drive
+      - driving
+      - car
+      - sleep
+      - focus
+      - study
+      - work
+      - party
+      - mood
+      - background
+      - offline
+      - download
+      - queue
+      - podcast
+      - audiobook
+      - playlist for
+    who_this_helps: [Product, UX]
+
+  - id: repeat_listening
+    question: "What causes users to repeatedly listen to the same content?"
+    keywords:
+      - same song
+      - same songs
+      - same music
+      - same artist
+      - on repeat
+      - over and over
+      - again and again
+      - replay
+      - loop
+      - stuck on
+      - shuffle plays
+      - repetitive
+      - comfort
+      - nostalgic
+    who_this_helps: [Product, Personalization]
+
+  - id: segment_challenges
+    question: "Which user segments experience different discovery challenges?"
+    segments:
+      - id: free_tier
+        label: "Free / ad-supported users"
+        keywords: [free tier, ads, advertisement, premium, pay, subscription, limited skips, skip limit]
+      - id: premium
+        label: "Premium subscribers"
+        keywords: [premium, subscriber, subscription, paid, family plan, student plan]
+      - id: podcast
+        label: "Podcast listeners"
+        keywords: [podcast, podcasts, episode, host, audiobook]
+      - id: mobile
+        label: "Mobile listeners"
+        keywords: [on my phone, mobile, ios, android, battery, background play]
+    keywords:
+      - discover
+      - recommendation
+      - hard to find
+      - can't find
+      - frustrated
+      - limited
+      - ads
+      - premium
+      - skip
+      - algorithm
+    who_this_helps: [Product, Growth, Discovery]
+
+  - id: unmet_needs
+    question: "What unmet needs emerge consistently across reviews?"
+    keywords:
+      - wish
+      - need to
+      - would love
+      - would be great
+      - missing
+      - lack
+      - should have
+      - hate that
+      - frustrating
+      - limited
+      - can't
+      - cannot
+      - without paying
+      - feature request
+      - improve
+      - needs work
+      - needs to
+    who_this_helps: [Product, Leadership]

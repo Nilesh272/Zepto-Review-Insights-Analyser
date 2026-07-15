@@ -1,0 +1,60 @@
+{
+  "brand": "Zepto",
+  "updated_at": "2026-07-15T12:15:04.784327+00:00",
+  "runs": [
+    {
+      "product_id": "zepto",
+      "product_name": "Zepto",
+      "doc_id": "zepto-weekly-pulse",
+      "iso_week": "2026-W28",
+      "reviews_collected": 2562,
+      "reviews_raw": 3950,
+      "source_counts": {
+        "app_store": 500,
+        "play_store": 3444,
+        "reddit": 2,
+        "forum": 1,
+        "social": 1,
+        "quick_commerce": 1,
+        "product_review": 1
+      },
+      "dropped": {
+        "duplicates_exact": 0,
+        "duplicates_near": 398,
+        "out_of_window": 486,
+        "quality": {
+          "emoji": 296,
+          "too_short": 138,
+          "language:fr": 8,
+          "language:so": 3,
+          "language:tl": 2,
+          "language:sq": 1,
+          "language:id": 12,
+          "language:af": 5,
+          "language:it": 5,
+          "language:es": 1,
+          "language:da": 12,
+          "language:sw": 2,
+          "language:et": 4,
+          "language:nl": 4,
+          "language:ca": 4,
+          "language:sv": 1,
+          "language:ro": 1,
+          "language:cy": 1,
+          "language:cs": 1,
+          "language:sl": 1,
+          "language:no": 2
+        }
+      },
+      "window": [
+        "2026-01-12T00:00:00+00:00",
+        "2026-07-12T23:59:59.999999+00:00"
+      ],
+      "themes": 8,
+      "quotes_validated": 32,
+      "latency_seconds": null,
+      "report_href": "zepto-weekly-pulse.html#h.pulsezepto2026w28",
+      "recorded_at": "2026-07-15T12:15:04.784327+00:00"
+    }
+  ]
+}

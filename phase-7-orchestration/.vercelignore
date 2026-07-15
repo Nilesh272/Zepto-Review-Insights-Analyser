@@ -1,0 +1,14 @@
+.venv/
+.pulse/
+.pytest_cache/
+__pycache__/
+tests/
+pulse/
+config/
+scripts/
+*.py
+*.pyc
+requirements.txt
+pyproject.toml
+README.md
+STDIO_MCP_SETUP.md

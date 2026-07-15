@@ -1,0 +1,16 @@
+To: product-pulse@example.com
+Subject: Weekly Review Pulse — Zepto (2026-W28)
+
+Zepto — Weekly Review Pulse (2026-W28)
+
+Key insights this week:
+  - Why do users repeatedly buy from the same categories?
+  - What prevents users from exploring new categories?
+  - How do users discover products today?
+  - What role do habits play in shopping behavior?
+  - What information do users need before trying a new category?
+  - What frustrations emerge repeatedly?
+  - Which user segments are more likely to experiment?
+  - What unmet needs emerge consistently across discussions?
+
+Read the full report: file:///Users/nikhilthakare/Desktop/Nilesh/Work/Cursor%20%20Projects/App%20Review%20Insights%20Analyzer/phase-7-orchestration/out/docs/zepto-weekly-pulse.html#h.pulsezepto2026w28

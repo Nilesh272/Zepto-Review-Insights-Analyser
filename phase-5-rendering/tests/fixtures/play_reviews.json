@@ -1,0 +1,26 @@
+[
+  {
+    "reviewId": "p1",
+    "userName": "Divya",
+    "score": 5,
+    "content": "Customer support resolved my withdrawal issue within a single day",
+    "at": "2026-06-26T08:00:00+00:00",
+    "appVersion": "5.2.1"
+  },
+  {
+    "reviewId": "p2",
+    "userName": "Karan",
+    "score": 4,
+    "content": "This app makes tracking my mutual funds really simple and fast",
+    "at": "2026-06-26T09:00:00+00:00",
+    "appVersion": "5.2.1"
+  },
+  {
+    "reviewId": "p3",
+    "userName": "Neha",
+    "score": 5,
+    "content": "The new dashboard layout is clean and easy to navigate daily",
+    "at": "2026-06-27T09:00:00+00:00",
+    "appVersion": "5.2.1"
+  }
+]

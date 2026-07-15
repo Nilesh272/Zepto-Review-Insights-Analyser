@@ -1,0 +1,22 @@
+[project]
+name = "pulse-phase4"
+version = "0.4.0"
+description = "Weekly Product Review Pulse — Phase 4 (Summarization & Grounding)"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2,<3",
+    "PyYAML>=6",
+    "langdetect>=1.0.9",
+    "google-play-scraper>=1.2.6",
+    "numpy>=1.23",
+    "umap-learn>=0.5",
+    "hdbscan>=0.8.33",
+]
+
+[project.optional-dependencies]
+semantic = ["sentence-transformers>=2.2"]
+llm = ["openai>=1.0"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

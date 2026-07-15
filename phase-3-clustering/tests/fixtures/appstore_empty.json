@@ -1,0 +1,10 @@
+{
+  "feed": {
+    "entry": [
+      {
+        "im:name": {"label": "Groww"},
+        "id": {"label": "app-metadata-entry"}
+      }
+    ]
+  }
+}

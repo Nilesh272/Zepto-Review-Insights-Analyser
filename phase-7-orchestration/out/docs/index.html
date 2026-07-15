@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zepto — Review Pulse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --ink: #1A1A2E;
+    --muted: #6B6580;
+    --line: rgba(139, 92, 246, 0.2);
+    --panel: rgba(255, 255, 255, 0.88);
+    --accent: #8B5CF6;
+    --accent-deep: #7C3AED;
+    --glow: #c4b5fd;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; color: var(--ink);
+    font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+    background:
+      radial-gradient(ellipse 70% 55% at 0% 0%, rgba(139, 92, 246, 0.35), transparent 55%),
+      radial-gradient(ellipse 55% 45% at 100% 8%, rgba(236, 72, 153, 0.16), transparent 50%),
+      linear-gradient(160deg, #EDE9FE 0%, #F3EEFF 42%, #faf8ff 100%);
+  }
+  .wrap {
+    max-width: 1040px; margin: 0 auto; padding: 40px 22px 72px;
+  }
+  .brand {
+    font-family: "Plus Jakarta Sans", "Segoe UI", sans-serif;
+    font-size: clamp(2.6rem, 6vw, 3.8rem);
+    font-weight: 800; letter-spacing: -0.045em;
+    margin: 0; line-height: 1.02; color: var(--ink);
+  }
+  .brand span { color: var(--accent); }
+  .lede {
+    margin: 10px 0 0; max-width: 36rem; color: var(--muted); font-size: 1.05rem;
+  }
+  .hero {
+    display: grid; gap: 28px; margin-top: 36px;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: end;
+  }
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; }
+  }
+  .stat-main {
+    background: linear-gradient(145deg, #1A1A2E 0%, #2b1750 60%, #7C3AED 100%);
+    border: 0; border-radius: 22px;
+    padding: 28px 30px 32px; color: #fff;
+    box-shadow: 0 16px 40px rgba(26, 26, 46, 0.22);
+    animation: rise 0.7s ease-out both;
+  }
+  .stat-main .label {
+    text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.72rem;
+    font-weight: 700; color: #d8b4fe; margin: 0 0 8px;
+  }
+  .stat-main .value {
+    font-size: clamp(3.6rem, 10vw, 5.5rem);
+    font-weight: 800; letter-spacing: -0.05em; line-height: 0.95;
+    margin: 0; color: #fff;
+  }
+  .stat-main .meta {
+    margin: 14px 0 0; color: rgba(255,255,255,0.75); font-size: 0.98rem;
+  }
+  .stat-main .meta strong { color: #fff; font-weight: 700; }
+  .side {
+    display: grid; gap: 12px;
+    animation: rise 0.7s ease-out 0.12s both;
+  }
+  .chip {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
+    box-shadow: 0 4px 14px rgba(139, 92, 246, 0.06);
+  }
+  .chip span { color: var(--muted); font-size: 0.9rem; }
+  .chip b {
+    font-size: 1.45rem; font-weight: 800; letter-spacing: -0.02em; color: var(--accent-deep);
+  }
+  .actions {
+    margin-top: 22px; display: flex; flex-wrap: wrap; gap: 12px;
+    animation: rise 0.7s ease-out 0.2s both;
+  }
+  .actions a {
+    display: inline-flex; align-items: center; gap: 8px;
+    text-decoration: none; font-weight: 700; font-size: 0.95rem;
+    padding: 12px 18px; border-radius: 999px;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+  .actions a.primary {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
+  }
+  .actions a.primary:hover { transform: translateY(-1px); background: var(--accent-deep); }
+  .actions a.ghost {
+    background: rgba(255,255,255,0.7); color: var(--ink); border: 1px solid var(--line);
+  }
+  .actions a.ghost:hover { background: #fff; }
+  .panel {
+    margin-top: 40px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 8px 4px 12px;
+    animation: rise 0.7s ease-out 0.28s both;
+    overflow: auto;
+    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.08);
+  }
+  .panel h2 {
+    font-size: 1.25rem; margin: 16px 22px 8px; font-weight: 800; color: var(--ink);
+  }
+  .panel p.hint {
+    margin: 0 22px 14px; color: var(--muted); font-size: 0.92rem;
+  }
+  table {
+    width: 100%; border-collapse: collapse; font-size: 0.94rem;
+  }
+  th, td {
+    text-align: left; padding: 12px 16px; border-top: 1px solid var(--line);
+  }
+  th {
+    color: var(--muted); font-weight: 700; font-size: 0.78rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.empty { text-align: center; color: var(--muted); padding: 28px; }
+  a { color: var(--accent-deep); }
+  footer {
+    margin-top: 28px; color: var(--muted); font-size: 0.85rem;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="brand"><span>Zepto</span> Pulse</h1>
+    <p class="lede">Review collection for Zepto. Counts update automatically after each weekly agent run.</p>
+
+    <div class="hero">
+      <div class="stat-main">
+        <p class="label">Reviews collected · latest week</p>
+        <p class="value">2,562</p>
+        <p class="meta">
+          <strong>Zepto</strong> · 2026-W28
+           · 3,950 fetched before filters
+        </p>
+      </div>
+      <div class="side">
+<div class="chip"><span>App Store</span><b>500</b></div>
+<div class="chip"><span>Google Play</span><b>3,444</b></div>
+<div class="chip"><span>Reddit</span><b>2</b></div>
+<div class="chip"><span>Forums / social / QC</span><b>4</b></div>
+        <div class="chip"><span>Dropped in filters</span><b>1,388</b></div>
+        <div class="chip"><span>Insight themes</span><b>8</b></div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="primary" href="zepto-weekly-pulse.html#h.pulsezepto2026w28">Open latest insight report</a>
+      <a class="ghost" href="zepto-weekly-pulse.html">All weeks (HTML doc)</a>
+    </div>
+
+    <div class="panel">
+      <h2>Collection history</h2>
+      <p class="hint">
+        Lifetime kept across recorded runs: <strong>2,562</strong>
+         · raw fetched: 3,950.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Week</th>
+            <th>Product</th>
+            <th class="num">Collected</th>
+            <th class="num">Raw</th>
+            <th class="num">App Store</th>
+            <th class="num">Play</th>
+            <th class="num">Reddit</th>
+            <th class="num">Community</th>
+            <th class="num">Themes</th>
+            <th>Report</th>
+          </tr>
+        </thead>
+        <tbody>
+<tr><td>2026-W28</td><td>Zepto</td><td class='num'>2,562</td><td class='num'>3,950</td><td class='num'>500</td><td class='num'>3,444</td><td class='num'>2</td><td class='num'>4</td><td class='num'>8</td><td><a href='zepto-weekly-pulse.html#h.pulsezepto2026w28'>Open report</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer>Updated 2026-07-15T12:15:04.784327+00:00 · data file <code>dashboard-data.json</code></footer>
+  </div>
+</body>
+</html>

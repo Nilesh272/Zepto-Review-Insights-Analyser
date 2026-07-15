@@ -1,0 +1,42 @@
+# Agent settings (architecture §10). All keys optional; defaults applied when omitted.
+window_weeks: 12            # rolling ingestion window (8–12 recommended)
+top_themes:
+  min: 3
+  max: 5
+language_allowlist:
+  - en
+limits:
+  max_tokens_per_run: 200000
+  max_cost_usd_per_run: 5.0
+ingestion:
+  app_store_country: in
+  play_lang: en
+  play_country: in
+  max_app_store_pages: 10
+  max_play_reviews: 400
+  max_retries: 3
+  retry_backoff_seconds: 1.0
+filters:
+  drop_emoji: true            # drop reviews that contain any emoji
+  drop_other_languages: true  # drop reviews whose detected language is not in language_allowlist
+  min_words: 4                # drop reviews with fewer than this many words
+preprocess:
+  redact_names: true          # redact author + cue-based person names
+  scrub_title: true           # scrub the review title in addition to the body
+  redetect_language: false    # ingestion already filtered language; re-detect off by default
+reasoning:
+  embedder: hashing           # hashing (default, no torch) | sentence-transformers
+  embedding_model: all-MiniLM-L6-v2
+  embedding_dim: 256
+  clusterer: auto             # auto | umap_hdbscan | fallback
+  umap_components: 5
+  umap_neighbors: 15
+  min_cluster_size: 3
+  min_reviews_for_clustering: 5
+  fallback_similarity_threshold: 0.45
+  random_seed: 42
+email_mode: draft           # draft | send  (dev/staging defaults to draft)
+stale_run_minutes: 120      # a RUNNING record older than this is considered stale/recoverable
+mcp:
+  docs_endpoint: "stdio://google-docs-mcp"
+  gmail_endpoint: "stdio://gmail-mcp"
